@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %} My catalog {% endblock %}
+
+{% block content %}
+<div class="row">
+	<div class="col-md-12">
+		<h1>{{item.name}}</h1>
+		<p>
+			{{item.description}}
+		</p>
+	</div>
+</div>
+
+<div class="row"> <!-- options -->
+	<div class="col-md-5"></div>
+	<div class="col-md-7">
+		{% if loggedin %} 
+			<a href="/edititem/{{item.id}}" class="btn btn-primary btn-sm" >Edit </a> 
+			<a href="/deleteitem/{{item.id}}"  role="button" class="btn btn-danger btn-sm deleteconfirm" >Delete</a> 
+		{% endif %}
+	</div>
+</div>
+
+{% endblock %}

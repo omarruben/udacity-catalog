@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>{% block title %}{% endblock %}</title>
+		<meta charset="utf-8">
+    	
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+		<link href="{{ url_for('static', filename='css/normalize.css') }}" rel="stylesheet">
+		<link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+
+		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	</head>
+
+	<body>
+		<div class="container">
+
+			<!-- Logo/title header and navigation -->
+				<div class="header clearfix">
+			        <nav>
+			          <ul class="nav nav-pills float-right">
+			            <li class="nav-item">  <a class="nav-link" href="/">Home</a> </li>
+
+			            <!-- if user is logged in -->
+			            {% if loggedin %}
+			            	<li class="nav-item">  <a class="nav-link" href="/logout">Logout</a> </li>
+			            {% else %}
+			            	<!--<li class="nav-item">  <a class="nav-link" href="/signup">Register</a> </li> -->
+			            	<li class="nav-item">  <a class="nav-link" href="/login">Login</a> </li>
+			            {% endif %}
+
+			            
+			          </ul>
+			        </nav>
+			        <h3 class="text-muted"><a href="/"><img src="{{ url_for('static', filename='images/logo.png') }}" alt="ot logo"></a> My Catalog 3000</h3>
+			     </div>
+			
+
+			<!-- main content -->
+			<div class="row marketing">
+				<div id="flashx" class="col-md-12">
+					{% with messages = get_flashed_messages() %}
+					  {% if messages %}
+					    <ul class="flashes">
+					    {% for message in messages %}
+					      <li>{{ message }}</li>
+					    {% endfor %}
+					    </ul>
+					  {% endif %}
+					{% endwith %}
+				</div>
+				<div class="col-md-12">
+					
+						{% block content %}
+						{% endblock %}
+					
+				</div>
+			</div>
+
+			<!-- foother -->
+			<div class="footer">
+						<img src="{{ url_for('static', filename='images/logo32.png') }}" alt="mini logo"> My Catalog 3000 - Powered by : <em>Python - Vagrant - Virtualbox - 2017</em>
+			</div>
+
+			<!-- alert modal for messages -->
+			<div id="alert-modal" class="modal fade">
+			  <div class="modal-dialog">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			        <h4 id="alert-modal-title" class="modal-title"></h4>
+			      </div>
+			      <div id="alert-modal-body" class="modal-body"></div>
+			      <div class="modal-footer">
+			        <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+			      </div>
+			    </div>
+			  </div>
+			</div>
+			<!-- alert modal for messages -->
+
+
+		</div> <!-- container -->
+
+    	<!-- Include all compiled plugins (below), or include individual files as needed -->
+    	<script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+
+    	<script>
+    	// function used for modal messajes
+    	function alertModal(title, body) {
+		  // Display error message to the user in a modal
+		  $('#alert-modal-title').html(title);
+		  $('#alert-modal-body').html(body);
+		  $('#alert-modal').modal('show');
+		}
+		</script>
+
+    	<script>
+        	$(function () {
+        		//************************ CONFIRM DELETE BUTTON ********************************************************************        
+	            $(".deleteconfirm").click(function() {
+	              	var a = confirm("Are you Sure?");
+	                if (a === true) {
+	                    window.location = $(this).attr('href');
+	                } else {
+	                    return false;
+	                }
+            	});
+        	});
+        </script>
+        <script>
+			$(document).ready(function() {
+			  $('#flashx').fadeOut(8000); // 5 seconds x 1000 milisec = 5000 milisec
+			});
+		</script>
+	</body>
+</html>

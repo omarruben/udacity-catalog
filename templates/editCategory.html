@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %} My catalog {% endblock %}
+
+{% block content %}
+<div class="row">
+	<div class="col-md-12">
+		<form id="edit_category" method="post">
+		  <div class="form-group">
+		    <label for="categoryName">Category Name:</label>
+		    <input type="text" class="form-control" name="categoryName"  id="categoryName" value="{{currentName}}">
+		  </div>
+
+		  <button type="submit" class="btn btn-primary">Update</button>
+		  <a href="/" class="btn btn-secondary" role="button">Cancel</a>
+		 </form>
+	</div>
+</div>
+<!-- verify form has item all required fields -->
+	<script>
+		$("#edit_category").submit(function(event){
+			var name = $("#categoryName").val();
+			if (name == "") { 
+				alert("Name is required!!!");
+				event.preventDefault();
+			} else {
+				return;
+			}
+		})
+
+	</script>
+{% endblock %}	

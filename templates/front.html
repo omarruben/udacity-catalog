@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block title %} My catalog {% endblock %}
+
+{% block content %}
+<div class="row">
+	<div class="col-md-5" style="border-right:solid rgb(245,245,245) 1px;">
+		<div class="row">
+			<div class="col-md-12">
+				<h1 class="text-center">CATEGORIES</h1>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="categorylist">
+					<ul>
+						{% for category in categories %}
+							<li>
+								<a href="/catalog/{{category.name}}">{{ category.name }}</a>
+								{% if loggedin %} 
+									<a href="/editcategory/{{category.id}}"> <img src="{{ url_for('static',filename='images/pen.png')}}"> </a> 
+									<a href="/deletecategory/{{category.id}}" class="deleteconfirm"><img src="{{ url_for('static',filename='images/delete.png')}}"> </a> 
+								{% endif %}
+							</li>
+						{% endfor %}
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="row"> <!-- options -->
+			<div class="col-md-5"></div>
+			<div class="col-md-7">{% if loggedin %} <a href="/newcategory" class="btn btn-primary btn-sm" >+ Add Category</a> {% endif %}</div>
+		</div>
+	</div>
+
+	<div class="col-md-7 items">
+		<div class="row">
+			<div class="col-md-12">
+				<h1 class="text-center">LAST ITEMS</h1> 
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="itemslist">
+					<ul>
+						{% for item in lastitems %}
+							<li>
+								<a href="/item/{{item.Category.name}}/{{item.Item.name}}/">{{ item.Item.name }},({{item.Category.name}})</a>
+								{% if loggedin %} 
+									<a href="/edititem/{{item.Item.id}}"> <img src="{{ url_for('static',filename='images/pen.png')}}"> </a> 
+									<a href="/deleteitem/{{item.Item.id}}" class="deleteconfirm"><img src="{{ url_for('static',filename='images/delete.png')}}"> </a> 
+								{% endif %}
+							</li>
+						{% endfor %}
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="row"> <!-- options -->
+			<div class="col-md-7"></div>
+			<div class="col-md-5">{% if loggedin %} <a href="/newitem" class="btn btn-primary btn-sm" >+ Add Item</a> {% endif %}</div>
+		</div>
+
+	</div>
+</div>
+{% endblock %}

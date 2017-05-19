@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block title %} My catalog {% endblock %}
+
+{% block content %}
+
+<div class="row">
+  <div class="col-md-6">
+    <p>
+      Please login with your facebook account, so you don't have to memorize a new id or password.
+      Your information is keep private by Facebook, we use it only the login you on our system.
+    </p>
+  </div>
+
+  <div class="col-md-6">
+        <div id="result"></div>
+        <!--FACEBOOK SIGN IN -->
+
+
+          <script>
+            window.fbAsyncInit = function() {
+              FB.init({
+                appId      : '1884799305101641',
+                cookie     : false,  // do not enable cookies to allow the server to access the session
+                xfbml      : true,  // parse social plugins on this page
+                version    : 'v2.8' // use version 2.9 (original from class  was2.2)
+              });
+              FB.AppEvents.logPageView();
+            };
+
+            // Load the SDK asynchronously and initialize
+            (function(d, s, id) {
+              var js, fjs = d.getElementsByTagName(s)[0];
+              if (d.getElementById(id)) return;
+              js = d.createElement(s); js.id = id;
+              js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.9&appId=1884799305101641";
+              fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+
+            // Here we run a very simple test of the Graph API after login is
+            // successful.  See statusChangeCallback() for when this call is made.
+            function sendTokenToServer() {
+              alertModal('Please wait','Login using facebook...')
+              var access_token = "";
+              // see if the connection was succesful and return token
+              FB.getLoginStatus(function(response) {
+                if (response.status === 'connected') {
+                  access_token = response.authResponse.accessToken;
+                }
+                else {
+                  FB.login();
+                }
+              });
+
+              // once login worked, we send the information to the program on the server to save on database
+              FB.api('/me', function(response) {
+               $.ajax({
+                  type: 'POST',
+                  url: '/fbconnect?state={{STATE}}', // state to verify user is corret and not forged one
+                  processData: false,
+                  data: access_token,
+                  contentType: 'application/octet-stream; charset=utf-8',
+                  success: function(result) {
+                    // Handle or verify the server response if necessary.
+                    if (result) {
+                      $('#result').html('Login Successful!</br>'+ result + '</br>Redirecting...')
+                      setTimeout(function() {window.location.href = "/catalog";}, 4000);
+                    } else {
+                      $('#result').html('Failed to make a server-side call. Check your configuration and console.');
+                    } // if
+                  } // result
+               }); // ajax
+              }); // fb.api
+            } // function sendtokentoserver
+
+          </script>
+
+                
+
+                <div class="fb-login-button" 
+                      data-max-rows="1" 
+                      data-size="large" 
+                      data-button-type="login_with" 
+                      data-show-faces="false" 
+                      data-auto-logout-link="false" 
+                      data-use-continue-as="false"
+                      data-scope = "email,public_profile"
+                      onlogin="sendTokenToServer();">
+                </div>
+
+              <div id="fb-root"></div>
+              <div id="status"></div>
+              
+
+        <!--END FACEBOOK SIGN IN -->
+    </div>
+
+</div> <!-- row -->
+
+{% endblock %}
