@@ -17,16 +17,16 @@ Simple and useful catalog management
 2. To access the server use SSH on port 2200 with the key provided.
 3. To access via browser goto http://172.245.179.199/
 4. After the server was deployed , we need to make a few changes to update an secure it:
-  a) Update system packages
-  b) Activate and configure UFW (firewall) 
-  c) Change default SSH port
-  d) Configure port 80 to server our catalog
-  e) Activate port NTP
-  f) Deactivate root access
-  g) Deactiveate password access, enforcing key-based authentication
-  h) Give user(not root) access to run the server
+   * Updated system packages
+   * Activate and configure UFW (firewall).
+   * Change default SSH port
+   * Configure port 80 to server our catalog
+   * Activate port NTP
+   * Deactivate root access
+   * Deactiveate password access, enforcing key-based authentication
+   * Give user(not root) access to run the server
   
-4. Our server uses Apache, WSGI, Python, Flask, SQLAlchemy and Postgress as database engine
+5. Our server uses Apache, WSGI, Python, Flask, SQLAlchemy and Postgress as database engine
 
 NOTES:
 - To run the python server, apache must not be running
