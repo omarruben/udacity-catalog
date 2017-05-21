@@ -16,27 +16,27 @@ Simple and useful catalog management
 # Setting up your Facebook App
 
 
-1.- Due to the fast changed on technology Facebook uses, these instructions are always update and links are changed very often.
+1. Due to the fast changed on technology Facebook uses, these instructions are always update and links are changed very often.
 
-2.- Go to to https://developers.facebook.com/docs/apps/register
+2. Go to to https://developers.facebook.com/docs/apps/register
 
-3.- Follow all instructions, create your app, update credentials.
+3. Follow all instructions, create your app, update credentials.
 
-4.- You need to get APP ID and SECRET , open the file fb_client_secrets.json and insert accordingly.
+4. You need to get APP ID and SECRET , open the file fb_client_secrets.json and insert accordingly.
 
-5.- On your Facebook app settings, you need to add and callback address, that should be the address of your server, on this case http://localhost:5000
+5. On your Facebook app settings, you need to add and callback address, that should be the address of your server, on this case http://localhost:5000
 
 
 
 # The server
 
-1.- Server address is 172.245.179.199
-2.- To access the server use SSH on port 2200 with the key provided.
-3.- To access via browser goto http://172.245.179.199/
-4.- If you wish you can populate the database with a basic-sample information with the command : python populatecatalog.py
-4.- Up to this point your database is ready to be used run the command : python project.py
-5.- You should see the message that your webserver is running under port 5000.
-6.- Go to your browser and type : http://localhost:5000.
+1. Server address is 172.245.179.199
+2. To access the server use SSH on port 2200 with the key provided.
+3. To access via browser goto http://172.245.179.199/
+4. If you wish you can populate the database with a basic-sample information with the command : python populatecatalog.py
+4. Up to this point your database is ready to be used run the command : python project.py
+5. You should see the message that your webserver is running under port 5000.
+6. Go to your browser and type : http://localhost:5000.
 
 NOTES:
 - Only users signed in are able to do create and make changes on items and catalogs.
